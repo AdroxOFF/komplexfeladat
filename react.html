@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>React CRUD</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <h1>React CRUD Alkalmazás</h1>
+    <a href="index.html">Vissza a főoldalra</a>
+    <hr>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        function App() {
+            const [szerelok, setSzerelok] = React.useState([
+                { id: 1, nev: "Szabó Gábor", ev: 2 },
+                { id: 2, nev: "Tóth Zoltán", ev: 8 }
+            ]);
+            const [ujNev, setUjNev] = React.useState('');
+            const [ujEv, setUjEv] = React.useState('');
+
+            const hozzaad = () => {
+                if(ujNev && ujEv) {
+                    setSzerelok([...szerelok, { id: Date.now(), nev: ujNev, ev: ujEv }]);
+                    setUjNev(''); setUjEv('');
+                }
+            };
+
+            const torol = (id) => {
+                setSzerelok(szerelok.filter(sz => sz.id !== id));
+            };
+
+            return (
+                <div>
+                    <h3>Új szerelő</h3>
+                    <input value={ujNev} onChange={e => setUjNev(e.target.value)} placeholder="Név" />
+                    <input value={ujEv} onChange={e => setUjEv(e.target.value)} type="number" placeholder="Év" />
+                    <button onClick={hozzaad}>Hozzáadás</button>
+
+                    <h3>Szerelők listája</h3>
+                    <ul>
+                        {szerelok.map(sz => (
+                            <li key={sz.id}>
+                                {sz.nev} ({sz.ev} év) 
+                                <button onClick={() => torol(sz.id)}>Törlés</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
