@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>JS CRUD - Szerelők</title>
+</head>
+<body>
+    <h1>JavaScript CRUD Alkalmazás</h1>
+    <a href="index.html">Vissza a főoldalra</a>
+    <hr>
+    
+    <h3>Új szerelő felvétele</h3>
+    <input type="text" id="nev" placeholder="Szerelő neve">
+    <input type="number" id="ev" placeholder="Tapasztalat (év)">
+    <button onclick="hozzaad()">Hozzáadás</button>
+
+    <h3>Szerelők listája</h3>
+    <ul id="lista"></ul>
+
+    <script>
+        // Helyi adatbázis (tömb)
+        let szerelok = [
+            { id: 1, nev: "Kovács János", ev: 5 },
+            { id: 2, nev: "Nagy Péter", ev: 12 }
+        ];
+
+        function render() {
+            const lista = document.getElementById('lista');
+            lista.innerHTML = '';
+            szerelok.forEach((sz, index) => {
+                lista.innerHTML += `<li>${sz.nev} (${sz.ev} év tapasztalat) 
+                    <button onclick="torol(${index})">Törlés</button></li>`;
+            });
+        }
+
+        function hozzaad() {
+            const nev = document.getElementById('nev').value;
+            const ev = document.getElementById('ev').value;
+            if(nev && ev) {
+                szerelok.push({ id: Date.now(), nev: nev, ev: parseInt(ev) });
+                render();
+            }
+        }
+
+        function torol(index) {
+            szerelok.splice(index, 1);
+            render();
+        }
+
+        render(); // Kezdeti listázás
+    </script>
+</body>
+</html>
