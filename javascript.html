@@ -2,52 +2,78 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
     <title>JS CRUD - Szerelők</title>
 </head>
 <body>
-    <h1>JavaScript CRUD Alkalmazás</h1>
-    <a href="index.html">Vissza a főoldalra</a>
-    <hr>
+    <header>
+        <h1>Vízvezeték-szerelők és Karbantartók Hálózata</h1>
+    </header>
     
-    <h3>Új szerelő felvétele</h3>
-    <input type="text" id="nev" placeholder="Szerelő neve">
-    <input type="number" id="ev" placeholder="Tapasztalat (év)">
-    <button onclick="hozzaad()">Hozzáadás</button>
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="javascript.html" class="active-nav">JS CRUD</a></li>
+            <li><a href="react.html">React CRUD</a></li>
+            <li><a href="spa/index.html">SPA (Játékok)</a></li>
+            <li><a href="fetchapi.html">Fetch API</a></li>
+            <li><a href="axios.html">Axios</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
 
-    <h3>Szerelők listája</h3>
-    <ul id="lista"></ul>
+    <main>
+        <h2>JavaScript CRUD Alkalmazás</h2>
+        <hr>
+        
+        <h3>Új szerelő felvétele</h3>
+        <input type="text" id="nev" placeholder="Szerelő neve">
+        <input type="number" id="ev" placeholder="Tapasztalat (év)">
+        <button onclick="hozzaad()">Hozzáadás</button>
 
-    <script>
-        // Helyi adatbázis (tömb)
-        let szerelok = [
-            { id: 1, nev: "Kovács János", ev: 5 },
-            { id: 2, nev: "Nagy Péter", ev: 12 }
-        ];
+        <h3>Szerelők listája</h3>
+        <ul id="lista" style="list-style: none; padding: 0;"></ul>
 
-        function render() {
-            const lista = document.getElementById('lista');
-            lista.innerHTML = '';
-            szerelok.forEach((sz, index) => {
-                lista.innerHTML += `<li>${sz.nev} (${sz.ev} év tapasztalat) 
-                    <button onclick="torol(${index})">Törlés</button></li>`;
-            });
-        }
+        <script>
+            let szerelok = [
+                { id: 1, nev: "Kovács János", ev: 5 },
+                { id: 2, nev: "Nagy Péter", ev: 12 }
+            ];
 
-        function hozzaad() {
-            const nev = document.getElementById('nev').value;
-            const ev = document.getElementById('ev').value;
-            if(nev && ev) {
-                szerelok.push({ id: Date.now(), nev: nev, ev: parseInt(ev) });
+            function render() {
+                const lista = document.getElementById('lista');
+                lista.innerHTML = '';
+                szerelok.forEach((sz, index) => {
+                    lista.innerHTML += `<li style="margin: 10px 0; background: #fff; padding: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center;">
+                        <span><strong>${sz.nev}</strong> (${sz.ev} év tapasztalat)</span> 
+                        <button class="delete-btn" onclick="torol(${index})">Törlés</button></li>`;
+                });
+            }
+
+            function hozzaad() {
+                const nev = document.getElementById('nev').value;
+                const ev = document.getElementById('ev').value;
+                if(nev && ev) {
+                    szerelok.push({ id: Date.now(), nev: nev, ev: parseInt(ev) });
+                    render();
+                }
+            }
+
+            function torol(index) {
+                szerelok.splice(index, 1);
                 render();
             }
-        }
 
-        function torol(index) {
-            szerelok.splice(index, 1);
             render();
-        }
+        </script>
+        
+        <img src="https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=800&q=80" 
+         alt="Munkás szerszámokkal" 
+         style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 30px auto; display: block;">
+    </main>
 
-        render(); // Kezdeti listázás
-    </script>
+    <footer>
+        <p>Készítette: Kókai Szabolcs -------- S6U8Z7</p>
+    </footer>
 </body>
 </html>
