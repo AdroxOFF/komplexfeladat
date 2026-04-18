@@ -13,4 +13,7 @@ $dbname = "szab1234";
 $conn = new mysqli($servername, $username, $password, $dbname);
 $conn->set_charset("utf8");
 
+if ($conn->connect_error) {
+    die(json_encode(["error" => "Kapcsosdási hiba"]));
+}
 ?>
