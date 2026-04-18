@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>OOJS Feladat</title>
+</head>
+<body>
+    <header>
+        <h1>Vízvezeték-szerelők és Karbantartók Hálózata</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="javascript.html">JS CRUD</a></li>
+            <li><a href="react.html">React CRUD</a></li>
+            <li><a href="spa/index.html">SPA (Játékok)</a></li>
+            <li><a href="fetchapi.html">Fetch API</a></li>
+            <li><a href="axios.html">Axios</a></li>
+            <li><a href="oojs.html" class="active-nav">OOJS</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Objektumorientált JavaScript</h2>
+        <hr>
+        
+        <div id="oojs-container" style="text-align: left; max-width: 600px; margin: 0 auto;"></div>
+
+        <script>
+            class Dolgozo {
+                constructor(nev, oraber) {
+                    this.nev = nev;
+                    this.oraber = oraber;
+                }
+                bemutatkozik() {
+                    return `Én ${this.nev} vagyok, órabérem: ${this.oraber} Ft.`;
+                }
+            }
+
+            class Szerelo extends Dolgozo {
+                constructor(nev, oraber, szakterulet) {
+                    super(nev, oraber); 
+                    this.szakterulet = szakterulet;
+                }
+                
+                grafikusMegjelenites() {
+                    const div = document.createElement('div');
+                    // Lecseréltem a dizájnt, hogy illeszkedjen a kék témához
+                    div.style.borderLeft = "5px solid var(--primary-blue)";
+                    div.style.backgroundColor = "var(--white)";
+                    div.style.padding = "15px";
+                    div.style.margin = "15px 0";
+                    div.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+                    div.style.borderRadius = "4px";
+                    div.innerHTML = `<p style="margin:0;">${this.bemutatkozik()}<br>Szakterületem: <strong style="color:var(--primary-blue);">${this.szakterulet}</strong></p>`;
+                    
+                    document.getElementById('oojs-container').appendChild(div);
+                }
+            }
+
+            const s1 = new Szerelo("Vizes Vili", 5000, "Vízvezeték-szerelő");
+            const s2 = new Szerelo("Csöves Csaba", 6500, "Fűtésszerelő");
+
+            s1.grafikusMegjelenites();
+            s2.grafikusMegjelenites();
+        </script>
+        
+        <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80" alt="Mérnöki tervrajz" style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 30px auto; display: block;">
+    </main>
+
+    <footer>
+        <p>Készítette: Kókai Szabolcs -------- S6U8Z7</p>
+        <p>Készítette: Urosev Martin -------- A0B0ZZ</p>
+    </footer>
+</body>
+</html>
