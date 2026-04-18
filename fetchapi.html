@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Fetch API CRUD - Szerelők</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Vízvezeték-szerelők és Karbantartók Hálózata</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Főoldal</a></li>
+            <li><a href="javascript.html">JS CRUD</a></li>
+            <li><a href="react.html">React CRUD</a></li>
+            <li><a href="spa/index.html">SPA (Játékok)</a></li>
+            <li><a href="fetchapi.html" class="active-nav">Fetch API</a></li>
+            <li><a href="axios.html">Axios</a></li>
+            <li><a href="oojs.html">OOJS</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h2>Szerelők kezelése (Fetch API)</h2>
+        <hr>
+
+        <div id="status" style="color: var(--primary-blue); font-weight: bold; margin-bottom: 15px;"></div>
+
+        <h3>Új szerelő rögzítése</h3>
+        <input type="text" id="ujNev" placeholder="Név">
+        <input type="number" id="ujEv" placeholder="Kezdés éve">
+        <button onclick="hozzaad()">Mentés az adatbázisba</button>
+
+        <h3>Adatbázis tartalma</h3>
+        <table id="szereloTabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Név</th>
+                    <th>Kezdés éve</th>
+                    <th>Művelet</th>
+                </tr>
+            </thead>
+            <tbody id="listaBody"></tbody>
+        </table>
+
+        <script>
+            const API_URL = 'api.php'; 
+
+            async function listaz() {
+                document.getElementById('status').innerText = "Betöltés...";
+                try {
+                    const response = await fetch(API_URL);
+                    const adatok = await response.json();
+                    
+                    const tbody = document.getElementById('listaBody');
+                    tbody.innerHTML = '';
+                    
+                    adatok.forEach(sz => {
+                        tbody.innerHTML += `
+                            <tr>
+                                <td>${sz.az}</td>
+                                <td><strong>${sz.nev}</strong></td>
+                                <td>${sz.kezdev}</td>
+                                <td><button class="delete-btn" onclick="torol(${sz.az})">Törlés</button></td>
+                            </tr>`;
+                    });
+                    document.getElementById('status').innerText = "";
+                } catch (error) {
+                    document.getElementById('status').innerText = "Hiba a betöltéskor!";
+                }
+            }
+
+            async function hozzaad() {
+                const nev = document.getElementById('ujNev').value;
+                const kezdev = document.getElementById('ujEv').value;
+
+                if(!nev || !kezdev) return alert("Töltsd ki a mezőket!");
+
+                await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ nev: nev, kezdev: parseInt(kezdev) }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                document.getElementById('ujNev').value = '';
+                document.getElementById('ujEv').value = '';
+                listaz(); 
+            }
+
+            async function torol(id) {
+                if(confirm('Biztosan törlöd?')) {
+                    await fetch(`${API_URL}?id=${id}`, { method: 'DELETE' });
+                    listaz();
+                }
+            }
+
+            listaz(); 
+        </script>
+        
+        <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=800&q=80" 
+         alt="Mosogató szerelése" 
+         style="width: 100%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin: 30px auto; display: block;">
+    </main>
+
+    <footer>
+        <p>Készítette: Urosev Martin -------- A0B0ZZ</p>
+    </footer>
+</body>
+</html>
