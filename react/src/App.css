@@ -1,0 +1,61 @@
+/* =========================================
+   ALAPBEÁLLÍTÁSOK ÉS SZÍNEK (Vízvezeték téma)
+   ========================================= */
+:root {
+    --primary-blue: #0275d8;
+    --secondary-blue: #5bc0de;
+    --dark-blue: #01447e;
+    --bg-color: #f0f7fa;
+    --text-color: #333333;
+    --white: #ffffff;
+    --danger: #d9534f;
+    --success: #5cb85c;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* FEJLÉC ÉS NAVIGÁCIÓ */
+header { background-color: var(--primary-blue); color: var(--white); padding: 20px 0; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-bottom: 5px solid var(--secondary-blue); }
+header h1 { margin: 0; font-size: 2.2em; letter-spacing: 1px; }
+nav { background-color: var(--white); box-shadow: 0 2px 4px rgba(0,0,0,0.05); padding: 10px 0; margin-bottom: 30px; }
+nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+nav a { text-decoration: none; color: var(--primary-blue); font-weight: bold; padding: 10px 20px; border-radius: 5px; transition: all 0.3s ease; }
+nav a:hover { background-color: var(--secondary-blue); color: var(--white); }
+.active-nav { background-color: var(--secondary-blue); color: var(--white); }
+
+/* FŐ TARTALOM */
+main { max-width: 900px; margin: 0 auto; padding: 0 20px; text-align: center; min-height: 50vh; }
+h2, h3 { color: var(--dark-blue); }
+hr { border: 0; height: 1px; background: #ccc; margin: 20px 0; }
+
+/* LÁBLÉC */
+footer { text-align: center; padding: 20px; margin-top: 50px; background-color: var(--dark-blue); color: var(--white); font-size: 0.9em; }
+
+/* =========================================
+   SPA JÁTÉKOK STÍLUSAI
+   ========================================= */
+.spa-nav { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+.spa-nav button { padding: 10px 20px; cursor: pointer; border: none; background: var(--primary-blue); color: white; border-radius: 4px; font-weight: bold; font-size: 1em; }
+.spa-nav button.active { background: var(--dark-blue); box-shadow: inset 0 3px 5px rgba(0,0,0,0.2); }
+.tab-content { background: var(--white); padding: 30px; border-radius: 8px; border: 1px solid #ccc; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-top: 4px solid var(--secondary-blue); }
+
+/* Amőba */
+.board { display: grid; grid-template-columns: repeat(3, 80px); gap: 5px; justify-content: center; margin: 20px auto; }
+.square { width: 80px; height: 80px; font-size: 2.5em; background: var(--bg-color); border: 2px solid var(--secondary-blue); color: var(--primary-blue); cursor: pointer; }
+.action-btn { padding: 10px 20px; font-size: 1.1em; cursor: pointer; background: var(--success); color: white; border: none; border-radius: 5px; margin-top: 10px; }
+
+/* Számológép */
+.calc { max-width: 300px; margin: 0 auto; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+.calc-display { width: 100%; height: 50px; font-size: 1.8em; text-align: right; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; padding-right: 10px; box-sizing: border-box; }
+.calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.calc-keys button { background: white; color: #333; border: 1px solid #ccc; font-size: 1.2em; padding: 15px 0; border-radius: 4px; cursor: pointer;}
+.calc-keys button:hover { background: #eee; }
+.calc-keys button.operator { background: var(--secondary-blue); color: white; border: none; }
+.calc-keys button.clear { background: var(--danger); color: white; grid-column: span 4; }
